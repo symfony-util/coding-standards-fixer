@@ -119,7 +119,7 @@ script:
 - if true; then for f in $(find ./tests -name \*.php -print); do php -l $f; done; fi
 
 # php-cs-fixer
-- if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then ~/.composer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no . ; fi
+- if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then ~/.composer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no; fi
 # - orsuccess 127 ~/.composer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no
 # - pathfinderecho vendor/bin/php-cs-fixer
 # - where php-cs-fixer
@@ -141,7 +141,7 @@ script:
 # https://docs.travis-ci.com/user/speeding-up-the-build/
 
 # SensioLabs Security Checker
-- if [[ "5.4" < "$TRAVIS_PHP_VERSION" ]]; then php .travis/bin/security-checker security:check --end-point=http://security.sensiolabs.org/check_lock; fi
+- if [[ "5.4" < "$TRAVIS_PHP_VERSION" ]]; then php .travis/bin/security-checker security:check --help --end-point=http://security.sensiolabs.org/check_lock; fi
 #^ This checks that the application doesn't use dependencies with known security vulnerabilities
     #^ This checks that the application doesn't use dependencies with known security vulnerabilities
     # Should be in composer.json and should be run if found in path for components or better all the time as versions exists for all symfony 2 versions.
