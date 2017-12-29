@@ -2,8 +2,8 @@
     "name": "symfony-util/coding-standards-fixer",
     "license": "MIT",
     "description": "PHP Coding Standards Fixer Configuration from symfony/demo as a function of fileHeaderComment",
-    "suggests": {
-        "friendsofphp/php-cs-fixer": "^2.7"
+    "suggest": {
+        "friendsofphp/php-cs-fixer": "To be able to check PHP code"
     },
     "autoload": {
         "psr-4": {
