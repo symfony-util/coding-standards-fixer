@@ -1,0 +1,160 @@
+---
+language: php
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+matrix:
+  fast_finish: true
+  include:
+  - php: 5.4
+    env:
+    - SYMFONY_VERSION="2.3.*"
+  - php: 5.4
+    env:
+    - SYMFONY_VERSION="2.7.*"
+  - php: 5.4
+    env:
+    - SYMFONY_LTS="2"
+  - php: 5.4
+    env:
+    - SYMFONY_LTS="3"
+  - php: 7.2
+    env:
+    - SYMFONY_LTS="3"
+
+before_install:
+- shopt -s expand_aliases
+- pwd
+- echo $HOME
+- ls --color $HOME
+- echo $TRAVIS_PHP_VERSION
+- which composer
+- php --ini
+- xdebug=/home/travis/.phpenv/versions/$TRAVIS_PHP_VERSION/etc/conf.d/xdebug.ini
+- if [[ -f $xdebug ]]; then cat $xdebug; cp $xdebug /tmp; phpenv config-rm xdebug.ini; fi
+- xdebug_php=
+- if [[ -f /tmp/xdebug.ini ]]; then xdebug_php='-c /tmp/xdebug.ini'; fi
+- install --directory .travis/bin # use $HOME instead
+- ls --color $HOME
+- ls --color ~
+- ls --color $HOME/bin
+- ls --color ~/bin
+- install --directory ~/bin # use $HOME instead
+- ls --color $HOME
+- ls --color ~
+- ls --color $HOME/bin
+- ls --color ~/bin
+- echo $PATH
+- export PATH=~/bin:~/.composer/vendor/bin:$PATH
+- echo $PATH
+
+# shell process
+# - composer --working-dir=scripts update
+# - alias sp='php scripts/install-manager.php --ansi -vvv --'
+# - alias failsafe='php scripts/install-manager.php --ansi -vvv -- failsafe'
+# - alias orsuccess='php scripts/install-manager.php --ansi -vvv -- orsuccess'
+# - alias pathfinderecho='php scripts/install-manager.php --ansi -vvv -- pathfinderecho'
+# - alias execpathfound='php scripts/install-manager.php --ansi -vvv -- execpathfound'
+# - alias run='php scripts/install-manager.php --ansi -vvv -- run'
+# - alias where='php scripts/install-manager.php --ansi -vvv -- where'
+# - sp
+
+# php-cs-fixer
+# - if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar --output-document=$HOME/bin/php-cs-fixer; fi
+- if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then composer global require --dev symfony-util/coding-standards-fixer:master-dev@dev friendsofphp/php-cs-fixer; fi
+# - if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then php .travis/bin/php-cs-fixer --version; fi
+# - failsafe chmod u+x ~/bin/php-cs-fixer
+- failsafe php-cs-fixer --version
+
+# PHPStan - PHP Static Analysis Tool
+# https://github.com/symfony/symfony/issues/25459
+
+# PHPUnit (+ PHPStan for PHP 5.6+)
+# - php scripts/install-manager.php -vvv --ansi -- failsafe composer global require --dev phpstan/phpstan-phpunit
+# - php scripts/install-manager.php -vvv --ansi -- run composer global require --dev phpunit/phpunit
+- if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then composer global require --dev phpstan/phpstan-phpunit; fi;
+
+# - failsafe phpstan --version
+# - failsafe phpstan help analyse
+
+
+# SensioLabs Security Checker
+- if [[ "5.4" < "$TRAVIS_PHP_VERSION" ]]; then wget http://get.sensiolabs.org/security-checker.phar --output-document=.travis/bin/security-checker; fi
+
+- ls -l --color ~/.composer/vendor/bin || true
+
+install:
+# - failsafe cp config/parameters.yml.travis config/parameters.yml
+- if [[ -v SYMFONY_VERSION ]]; then composer require symfony/symfony:${SYMFONY_VERSION} --no-scripts --no-progress --no-suggest --optimize-autoloader --apcu-autoloader; fi
+- if [[ -v SYMFONY_LTS ]]; then composer require symfony/lts:${SYMFONY_LTS} --no-scripts --no-progress --no-suggest --optimize-autoloader --apcu-autoloader; fi
+- composer show
+
+before_script:
+
+script:
+# pathfinderecho
+- ls -a --color
+# - pathfinderecho travis
+# - pathfinderecho .travis
+# - pathfinderecho .travis/bin
+- ls -a --color .travis || true
+# - pathfinderecho security
+# - pathfinderecho checker
+# - pathfinderecho security-checker
+# - pathfinderecho bin/security-checker
+- ls -la --color .travis/bin || true
+# - pathfinderecho vendor/symfony
+# - pathfinderecho scripts
+# - pathfinderecho .php
+
+#  php -l main php code
+- for f in $(find . -path './vendor' -prune -o -path './scripts/vendor' -prune -o -path './tests' -prune -o -name \*.php -print) ; do php -l $f ; done
+
+# php -l test php code
+- if true; then for f in $(find ./tests -name \*.php -print); do php -l $f; done; fi
+
+# php-cs-fixer
+- if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then ~/.composer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no; fi
+# - orsuccess 127 ~/.composer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no
+# - pathfinderecho vendor/bin/php-cs-fixer
+# - where php-cs-fixer
+# - execpathfound vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no
+# --stop-on-violation 
+
+# PHPStan - PHP Static Analysis Tool
+- if [[ "5.6" < "$TRAVIS_PHP_VERSION" ]]; then ~/.composer/vendor/bin/phpstan analyse -v --level max *.php tests; fi
+# - orsuccess 127 phpstan analyse --ansi --debug --level max *.php tests --autoload-file=scripts/vendor/autoload.php scripts/*.php scripts/lib
+# - pathfinderecho vendor/bin/phpstan
+# - where phpstan
+# - execpathfound vendor/bin/phpstan analyse --ansi --debug --level max *.php tests --autoload-file=scripts/vendor/autoload.php scripts/*.php scripts/lib
+
+# PHPUnit
+# - if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then PHPUNIT_COVERAGE="--coverage-text --coverage-clover /tmp/coverage.xml"; fi
+# - if [[ -x ~/.composer/vendor/bin/phpunit ]]; then php --ini -c /tmp/xdebug.ini; php $xdebug_php ~/.composer/vendor/bin/phpunit --colors=always $PHPUNIT_COVERAGE; fi
+#!! consider using - phpdbg -qrr phpunit for php >= 7.0 as suggested in
+# https://docs.travis-ci.com/user/speeding-up-the-build/
+
+# SensioLabs Security Checker
+- if [[ "5.4" < "$TRAVIS_PHP_VERSION" ]]; then php .travis/bin/security-checker security:check --end-point=http://security.sensiolabs.org/check_lock; fi
+#^ This checks that the application doesn't use dependencies with known security vulnerabilities
+    #^ This checks that the application doesn't use dependencies with known security vulnerabilities
+    # Should be in composer.json and should be run if found in path for components or better all the time as versions exists for all symfony 2 versions.
+    # "scripts": {
+    #     "auto-scripts": {
+    #         "cache:clear": "symfony-cmd",
+    #         "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
+    #         "security-checker security:check": "script"
+    #     }
+    # },
+
+- if [[ -v VENDOR_LINT ]]; then for f in $(find ./vendor -name \*.php); do php -l $f > /dev/null; done; fi
+#^ Should be the last line of install but sometimes long to execute and little can be done for errors found.
+
+after_success:
+- if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]] && [[ "7.3" > "$TRAVIS_PHP_VERSION" ]]; then bash <(curl -s https://codecov.io/bash) -s /tmp; fi
+
+# inspirated from:
+  # symfony/symfony-demo
+  # https://github.com/doctrine/dbal/blob/v2.5.13/.travis.yml
