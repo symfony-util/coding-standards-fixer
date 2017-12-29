@@ -10,4 +10,9 @@
             "App\\": "src/"
         }
     }
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2017.05.x-dev"
+        }
+    }
 }
