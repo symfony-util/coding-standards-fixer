@@ -66,7 +66,7 @@ before_install:
 - if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then composer global require --dev symfony-util/coding-standards-fixer:master-dev@dev friendsofphp/php-cs-fixer; fi
 # - if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then php .travis/bin/php-cs-fixer --version; fi
 # - failsafe chmod u+x ~/bin/php-cs-fixer
-- failsafe php-cs-fixer --version
+# - failsafe php-cs-fixer --version
 
 # PHPStan - PHP Static Analysis Tool
 # https://github.com/symfony/symfony/issues/25459
