@@ -1,15 +1,16 @@
 <?php
 
-// This file is part of the Symfony package.
-
-// (c) Fabien Potencier <fabien@symfony.com> adapted by Jean-Bernard Addor
-
-// For the full copyright and license information, please view the LICENSE
-// file that was distributed with this source code.
+/*
+ * This file is part of the Symfony-Util package.
+ *
+ * (c) Jean-Bernard Addor adapted from Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 function symfonyCodingStandardsFixer($fileHeaderComment)
 {
-
 //     $finder = PhpCsFixer\Finder::create()
 //         ->in(__DIR__)
 //         ->exclude('config')
