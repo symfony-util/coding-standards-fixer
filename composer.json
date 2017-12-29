@@ -6,10 +6,8 @@
         "friendsofphp/php-cs-fixer": "To be able to check PHP code"
     },
     "autoload": {
-        "psr-4": {
-            "App\\": "src/"
-        }
-    }
+        "files": ["symfonyCodingStandardsFixer.php"]
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "2017.05.x-dev"
