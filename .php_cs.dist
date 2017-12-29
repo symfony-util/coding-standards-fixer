@@ -3,7 +3,7 @@
 $fileHeaderComment = <<<COMMENT
 This file is part of the Symfony-Util package.
 
-(c) Jean-Bernard Addor
+(c) Jean-Bernard Addor adapted from Fabien Potencier <fabien@symfony.com>
 
 For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
