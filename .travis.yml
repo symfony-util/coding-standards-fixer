@@ -50,6 +50,11 @@ before_install:
 - export PATH=~/bin:~/.composer/vendor/bin:$PATH
 - echo $PATH
 
+# Symfony *global* compatibility
+# !! *global* !!
+- if [[ -v SYMFONY_VERSION ]]; then composer global require symfony/symfony:${SYMFONY_VERSION} --no-scripts --no-progress --no-suggest --optimize-autoloader --apcu-autoloader; fi
+- if [[ -v SYMFONY_LTS ]]; then composer global require symfony/lts:${SYMFONY_LTS} --no-scripts --no-progress --no-suggest --optimize-autoloader --apcu-autoloader; fi
+
 # shell process
 # - composer --working-dir=scripts update
 # - alias sp='php scripts/install-manager.php --ansi -vvv --'
@@ -87,9 +92,7 @@ before_install:
 
 install:
 # - failsafe cp config/parameters.yml.travis config/parameters.yml
-- if [[ -v SYMFONY_VERSION ]]; then composer require symfony/symfony:${SYMFONY_VERSION} --no-scripts --no-progress --no-suggest --optimize-autoloader --apcu-autoloader; fi
-- if [[ -v SYMFONY_LTS ]]; then composer require symfony/lts:${SYMFONY_LTS} --no-scripts --no-progress --no-suggest --optimize-autoloader --apcu-autoloader; fi
-- composer show
+- composer global show
 
 before_script:
 
@@ -116,7 +119,7 @@ script:
 - if true; then for f in $(find ./tests -name \*.php -print); do php -l $f; done; fi
 
 # php-cs-fixer
-- if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then ~/.composer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no; fi
+- if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then ~/.composer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no . ; fi
 # - orsuccess 127 ~/.composer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no
 # - pathfinderecho vendor/bin/php-cs-fixer
 # - where php-cs-fixer
@@ -124,7 +127,8 @@ script:
 # --stop-on-violation 
 
 # PHPStan - PHP Static Analysis Tool
-- if [[ "5.6" < "$TRAVIS_PHP_VERSION" ]]; then ~/.composer/vendor/bin/phpstan analyse -v --level max *.php tests; fi
+- if [[ "5.6" < "$TRAVIS_PHP_VERSION" ]]; then ~/.composer/vendor/bin/phpstan analyse -v --level max *.php; fi
+# tests
 # - orsuccess 127 phpstan analyse --ansi --debug --level max *.php tests --autoload-file=scripts/vendor/autoload.php scripts/*.php scripts/lib
 # - pathfinderecho vendor/bin/phpstan
 # - where phpstan
