@@ -1,7 +1,6 @@
 {
     "name": "symfony-util/coding-standards-fixer",
     "license": "MIT",
-    "type": "project",
     "description": "PHP Coding Standards Fixer Configuration from symfony/demo as a function of fileHeaderComment",
     "suggests": {
         "friendsofphp/php-cs-fixer": "^2.7"
