@@ -10,13 +10,13 @@
 function symfonyCodingStandardsFixer($fileHeaderComment)
 {
 
-    $finder = PhpCsFixer\Finder::create()
-        ->in(__DIR__)
-        ->exclude('config')
-        ->exclude('var')
-        ->exclude('public/bundles')
-        ->exclude('public/build')
-    ;
+//     $finder = PhpCsFixer\Finder::create()
+//         ->in(__DIR__)
+//         ->exclude('config')
+//         ->exclude('var')
+//         ->exclude('public/bundles')
+//         ->exclude('public/build')
+//    ;
 
     return PhpCsFixer\Config::create()
         ->setRiskyAllowed(true)
@@ -38,7 +38,9 @@ function symfonyCodingStandardsFixer($fileHeaderComment)
             'strict_comparison' => true,
             'strict_param' => true,
         ])
-        ->setFinder($finder)
+        // ->setFinder($finder)
         // ->setCacheFile(__DIR__.'/var/.php_cs.cache')
     ;
 }
+
+// Inpired from https://github.com/symfony/symfony-demo/blob/master/.php_cs.dist 2017 December
