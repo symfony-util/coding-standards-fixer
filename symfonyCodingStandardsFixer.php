@@ -13,21 +13,13 @@ use PhpCsFixer\Config;
 
 function symfonyCodingStandardsFixer($fileHeaderComment)
 {
-//     $finder = PhpCsFixer\Finder::create()
-//         ->in(__DIR__)
-//         ->exclude('config')
-//         ->exclude('var')
-//         ->exclude('public/bundles')
-//         ->exclude('public/build')
-//    ;
-
     return Config::create()
         ->setRiskyAllowed(true)
         ->setRules(array(
             '@Symfony' => true,
             '@Symfony:risky' => true,
-            'array_syntax' => ['syntax' => 'short'],
-            'header_comment' => ['header' => $fileHeaderComment, 'separate' => 'both'],
+            'array_syntax' => array('syntax' => 'short'),
+            'header_comment' => array('header' => $fileHeaderComment, 'separate' => 'both'),
             'linebreak_after_opening_tag' => true,
             'mb_str_functions' => true,
             'no_php4_constructor' => true,
@@ -41,8 +33,6 @@ function symfonyCodingStandardsFixer($fileHeaderComment)
             'strict_comparison' => true,
             'strict_param' => true,
         ))
-        // ->setFinder($finder)
-        // ->setCacheFile(__DIR__.'/var/.php_cs.cache')
     ;
 }
 
