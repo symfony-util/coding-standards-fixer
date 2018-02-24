@@ -85,19 +85,20 @@ before_install:
 # php-cs-fixer
 # - if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then wget http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar --output-document=$HOME/bin/php-cs-fixer; fi
 # - if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then composer global require --dev symfony-util/coding-standards-fixer:master-dev@dev friendsofphp/php-cs-fixer:>=1.12; fi
-- composer require --dev friendsofphp/php-cs-fixer:">=1.12" || true
+- composer require --dev friendsofphp/php-cs-fixer:">=1.12" || composer install
 # - if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then php .travis/bin/php-cs-fixer --version; fi
 # - failsafe chmod u+x ~/bin/php-cs-fixer
 # - failsafe php-cs-fixer --version
 
 # PHPStan - PHP Static Analysis Tool
 # https://github.com/symfony/symfony/issues/25459
+- composer global require --dev phpstan/phpstan || true
 
 # PHPUnit (+ PHPStan for PHP 5.6+)
 # - php scripts/install-manager.php -vvv --ansi -- failsafe composer global require --dev phpstan/phpstan-phpunit
 # - php scripts/install-manager.php -vvv --ansi -- run composer global require --dev phpunit/phpunit
 # - if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then composer global require --dev phpstan/phpstan-phpunit; fi
-- composer global require --dev phpstan/phpstan-phpunit || true
+# - composer global require --dev phpstan/phpstan-phpunit || true
 
 # - failsafe phpstan --version
 # - failsafe phpstan help analyse
@@ -111,6 +112,7 @@ before_install:
 
 install:
 # - failsafe cp config/parameters.yml.travis config/parameters.yml
+- composer show
 - if [[ -f ~/.composer/composer.lock ]]; then composer global show; fi
 
 before_script:
@@ -146,7 +148,7 @@ script:
 # --stop-on-violation 
 
 # PHPStan - PHP Static Analysis Tool
-- if [[ "5.6" < "$TRAVIS_PHP_VERSION" ]]; then ~/.composer/vendor/bin/phpstan analyse -v --level max *.php; fi
+- if [[ -v ~/.composer/vendor/bin/phpstan ]]; then ~/.composer/vendor/bin/phpstan analyse -v --level max *.php; fi
 # tests
 # - orsuccess 127 phpstan analyse --ansi --debug --level max *.php tests --autoload-file=scripts/vendor/autoload.php scripts/*.php scripts/lib
 # - pathfinderecho vendor/bin/phpstan
