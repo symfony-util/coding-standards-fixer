@@ -103,7 +103,7 @@ before_install:
 
 # SensioLabs Security Checker # sensiolabs/security-checker
 # - if [[ "5.4" < "$TRAVIS_PHP_VERSION" ]]; then wget http://get.sensiolabs.org/security-checker.phar --output-document=.travis/bin/security-checker; fi
-- composer global require --dev sensiolabs/security-checker
+- composer global require --dev sensiolabs/security-checker || composer global require --dev sensiolabs/security-checker:^3.0
 
 - ls -l --color ~/.composer/vendor/bin || true
 
