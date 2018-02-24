@@ -63,7 +63,7 @@ before_install:
 - ls --color $HOME/bin
 - ls --color ~/bin
 - echo $PATH
-- export PATH=~/bin:~/.composer/vendor/bin:$PATH
+- export PATH=~/bin:~/.composer/vendor/bin:vendor/bin$PATH
 - echo $PATH
 
 # Symfony *global* compatibility
@@ -141,7 +141,7 @@ script:
 
 # php-cs-fixer
 - ls -l --color vendor/bin || true
-- if [[ -v vendor/bin/php-cs-fixer ]]; then vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no; fi
+- if [[ -v vendor/bin/php-cs-fixer ]]; then php vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no; fi
 # - orsuccess 127 ~/.composer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no
 # - pathfinderecho vendor/bin/php-cs-fixer
 # - where php-cs-fixer
@@ -150,7 +150,7 @@ script:
 
 # PHPStan - PHP Static Analysis Tool
 - ls -l --color ~/.composer/vendor/bin || true
-- if [[ -v ~/.composer/vendor/bin/phpstan ]]; then ~/.composer/vendor/bin/phpstan analyse -v --level max *.php; fi
+- if [[ -v ~/.composer/vendor/bin/phpstan ]]; then php ~/.composer/vendor/bin/phpstan analyse -v --level max *.php; fi
 # tests
 # - orsuccess 127 phpstan analyse --ansi --debug --level max *.php tests --autoload-file=scripts/vendor/autoload.php scripts/*.php scripts/lib
 # - pathfinderecho vendor/bin/phpstan
