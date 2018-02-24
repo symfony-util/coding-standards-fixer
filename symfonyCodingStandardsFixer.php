@@ -23,7 +23,7 @@ function symfonyCodingStandardsFixer($fileHeaderComment)
 
     return Config::create()
         ->setRiskyAllowed(true)
-        ->setRules([
+        ->setRules(array(
             '@Symfony' => true,
             '@Symfony:risky' => true,
             'array_syntax' => ['syntax' => 'short'],
@@ -40,7 +40,7 @@ function symfonyCodingStandardsFixer($fileHeaderComment)
             'semicolon_after_instruction' => true,
             'strict_comparison' => true,
             'strict_param' => true,
-        ])
+        ))
         // ->setFinder($finder)
         // ->setCacheFile(__DIR__.'/var/.php_cs.cache')
     ;
