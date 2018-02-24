@@ -151,9 +151,9 @@ script:
 
 # PHPStan - PHP Static Analysis Tool
 # - ls -l --color ~/.composer/vendor/bin || true
-- ls -l --color vendor/autoload.php vendor/friendsofphp/php-cs-fixer/src/Config.php
+- ls -l --color vendor/autoload.php vendor/friendsofphp/php-cs-fixer/src/Config.php || true
 # - if [[ -f ~/.composer/vendor/bin/phpstan ]]; then ~/.composer/vendor/bin/phpstan analyse -v --level max *.php; fi
-- if [[ -f vendor/bin/phpstan ]]; then vendor/bin/phpstan analyse -v --level max *.php; fi
+- if [[ -f vendor/bin/phpstan ]] && [[ -f vendor/friendsofphp/php-cs-fixer/src/Config.php ]]; then vendor/bin/phpstan analyse -v --level max *.php; fi
 # tests
 # - orsuccess 127 phpstan analyse --ansi --debug --level max *.php tests --autoload-file=scripts/vendor/autoload.php scripts/*.php scripts/lib
 # - pathfinderecho vendor/bin/phpstan
