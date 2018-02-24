@@ -150,6 +150,7 @@ script:
 
 # PHPStan - PHP Static Analysis Tool
 - ls -l --color ~/.composer/vendor/bin || true
+- ls -l --color
 - if [[ -v ~/.composer/vendor/bin/phpstan ]]; then php ~/.composer/vendor/bin/phpstan analyse -v --level max *.php; fi
 # tests
 # - orsuccess 127 phpstan analyse --ansi --debug --level max *.php tests --autoload-file=scripts/vendor/autoload.php scripts/*.php scripts/lib
