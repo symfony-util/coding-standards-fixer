@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+use PhpCsFixer\Config;
+
 function symfonyCodingStandardsFixer($fileHeaderComment)
 {
 //     $finder = PhpCsFixer\Finder::create()
@@ -19,7 +21,7 @@ function symfonyCodingStandardsFixer($fileHeaderComment)
 //         ->exclude('public/build')
 //    ;
 
-    return PhpCsFixer\Config::create()
+    return Config::create()
         ->setRiskyAllowed(true)
         ->setRules([
             '@Symfony' => true,
