@@ -92,7 +92,8 @@ before_install:
 
 # PHPStan - PHP Static Analysis Tool
 # https://github.com/symfony/symfony/issues/25459
-- composer global require --dev phpstan/phpstan || true
+# - composer global require --dev phpstan/phpstan || true
+- composer require --dev phpstan/phpstan || true
 
 # PHPUnit (+ PHPStan for PHP 5.6+)
 # - php scripts/install-manager.php -vvv --ansi -- failsafe composer global require --dev phpstan/phpstan-phpunit
@@ -151,7 +152,8 @@ script:
 # PHPStan - PHP Static Analysis Tool
 # - ls -l --color ~/.composer/vendor/bin || true
 # - ls -l --color
-- if [[ -f ~/.composer/vendor/bin/phpstan ]]; then ~/.composer/vendor/bin/phpstan analyse -v --level max *.php; fi
+# - if [[ -f ~/.composer/vendor/bin/phpstan ]]; then ~/.composer/vendor/bin/phpstan analyse -v --level max *.php; fi
+- if [[ -f vendor/bin/phpstan ]]; then vendor/bin/phpstan analyse -v --level max *.php; fi
 # tests
 # - orsuccess 127 phpstan analyse --ansi --debug --level max *.php tests --autoload-file=scripts/vendor/autoload.php scripts/*.php scripts/lib
 # - pathfinderecho vendor/bin/phpstan
