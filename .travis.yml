@@ -101,8 +101,9 @@ before_install:
 # - failsafe phpstan help analyse
 
 
-# SensioLabs Security Checker
-- if [[ "5.4" < "$TRAVIS_PHP_VERSION" ]]; then wget http://get.sensiolabs.org/security-checker.phar --output-document=.travis/bin/security-checker; fi
+# SensioLabs Security Checker # sensiolabs/security-checker
+# - if [[ "5.4" < "$TRAVIS_PHP_VERSION" ]]; then wget http://get.sensiolabs.org/security-checker.phar --output-document=.travis/bin/security-checker; fi
+composer global require --dev sensiolabs/security-checker
 
 - ls -l --color ~/.composer/vendor/bin || true
 
