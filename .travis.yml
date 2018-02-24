@@ -138,8 +138,7 @@ script:
 - if true; then for f in $(find ./tests -name \*.php -print); do php -l $f; done; fi
 
 # php-cs-fixer
-# - if [[ "5.5" < "$TRAVIS_PHP_VERSION" ]]; then ~/.composer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no; fi
-- vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no
+- if [[ -v vendor/bin/php-cs-fixer ]]; then vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no; fi
 # - orsuccess 127 ~/.composer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no
 # - pathfinderecho vendor/bin/php-cs-fixer
 # - where php-cs-fixer
