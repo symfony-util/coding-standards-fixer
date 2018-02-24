@@ -141,7 +141,7 @@ script:
 
 # php-cs-fixer
 - ls -l --color vendor/bin || true
-- if [[ -v vendor/bin/php-cs-fixer ]]; then php vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no; fi
+- if [[ -v vendor/bin/php-cs-fixer ]]; then php vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no .; fi
 # - orsuccess 127 ~/.composer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no
 # - pathfinderecho vendor/bin/php-cs-fixer
 # - where php-cs-fixer
