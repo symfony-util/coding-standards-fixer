@@ -10,7 +10,7 @@ php:
 
 env:
   global:
-  - PATH=~/bin:~/.composer/vendor/bin:vendor/bin$PATH
+  - PATH=~/bin:~/.composer/vendor/bin:vendor/bin:$PATH
 
 matrix:
   fast_finish: true
@@ -125,7 +125,8 @@ before_install:
 install:
 # - failsafe cp config/parameters.yml.travis config/parameters.yml
 - composer show
-- if [[ -f ~/.composer/composer.lock ]]; then composer global show; fi
+- composer global show
+# - if [[ -f ~/.composer/composer.lock ]]; then composer global show; fi
 
 before_script:
 
@@ -153,7 +154,8 @@ script:
 
 # php-cs-fixer
 # - ls -l --color vendor/bin || true
-- if [[ -f vendor/bin/php-cs-fixer ]]; then vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no; fi
+# - if [[ -f vendor/bin/php-cs-fixer ]]; then vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no; fi
+- if command -v php-cs-fixer; then php-cs-fixer fix --diff --dry-run -vvv --using-cache=no; fi
 # - orsuccess 127 ~/.composer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --using-cache=no
 # - pathfinderecho vendor/bin/php-cs-fixer
 # - where php-cs-fixer
@@ -163,7 +165,8 @@ script:
 # PHPStan - PHP Static Analysis Tool
 # - ls -l --color ~/.composer/vendor/bin || true
 - ls -l --color vendor/autoload.php vendor/friendsofphp/php-cs-fixer/src/Config.php || true
-- if [[ -f ~/.composer/vendor/bin/phpstan ]] && [[ -f vendor/friendsofphp/php-cs-fixer/src/Config.php ]]; then ~/.composer/vendor/bin/phpstan analyse -v --level max *.php; fi
+# - if [[ -f ~/.composer/vendor/bin/phpstan ]] && [[ -f vendor/friendsofphp/php-cs-fixer/src/Config.php ]]; then ~/.composer/vendor/bin/phpstan analyse -v --level max *.php; fi
+- if command -v phpstan && [[ -f vendor/friendsofphp/php-cs-fixer/src/Config.php ]]; then phpstan analyse -v --level max *.php; fi
 # - if   [[ -f             vendor/bin/phpstan ]] && [[ -f vendor/friendsofphp/php-cs-fixer/src/Config.php ]]; then             vendor/bin/phpstan analyse -v --level max *.php; fi
 # tests
 # - orsuccess 127 phpstan analyse --ansi --debug --level max *.php tests --autoload-file=scripts/vendor/autoload.php scripts/*.php scripts/lib
