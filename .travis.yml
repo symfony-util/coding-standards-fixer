@@ -8,6 +8,10 @@ php:
 - nightly
 - 7.2
 
+env:
+  global:
+  - PATH=~/bin:~/.composer/vendor/bin:vendor/bin$PATH
+
 matrix:
   fast_finish: true
   include:
@@ -67,8 +71,8 @@ before_install:
 - ls --color $HOME/bin
 - ls --color ~/bin
 - echo $PATH
-- export PATH=~/bin:~/.composer/vendor/bin:vendor/bin$PATH
-- echo $PATH
+# - export PATH=~/bin:~/.composer/vendor/bin:vendor/bin$PATH
+# - echo $PATH
 
 # Symfony *global* compatibility
 # !! *global* !!
