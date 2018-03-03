@@ -52,9 +52,9 @@ matrix:
   - php: nightly
   - php: 7.3
   - env:
-    - SYMFONY_VERSION="2.3.*"
-  - env:
     - SYMFONY_VERSION="2.7.*" # https://github.com/symfony/symfony/issues/26315
+  - env:
+    - SYMFONY_VERSION="2.3.*"
   
 before_install:
 - shopt -s expand_aliases
