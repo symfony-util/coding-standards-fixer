@@ -11,7 +11,8 @@ php:
 
 env:
   global:
-  - PATH=~/bin:~/.composer/vendor/bin:vendor/bin:$PATH
+  # - PATH=~/bin:~/.composer/vendor/bin:vendor/bin:$PATH
+  - PATH=~/.composer/vendor/bin:vendor/bin:$PATH
 
 matrix:
   fast_finish: true
