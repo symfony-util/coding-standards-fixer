@@ -18,7 +18,7 @@ function symfonyCodingStandardsFixer($fileHeaderComment)
         ->setRules(array(
             '@Symfony' => true,
             '@Symfony:risky' => true,
-            // 'array_syntax' => array('syntax' => 'short'),
+            'array_syntax' => array('syntax' => 'long'),
             'header_comment' => array('header' => $fileHeaderComment, 'separate' => 'both'),
             'linebreak_after_opening_tag' => true,
             'mb_str_functions' => true,
