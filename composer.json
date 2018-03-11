@@ -3,6 +3,9 @@
     "license": "MIT",
     "description": "PHP Coding Standards Fixer Configuration from symfony/demo as a function of fileHeaderComment",
     "keywords": ["coding-standards", "php-cs-fixer", "symfony", "snowyowl"],
+    "require": {
+        "php": ">=5.4",
+    },
     "suggest": {
         "friendsofphp/php-cs-fixer": "To be able to check PHP code"
     },
