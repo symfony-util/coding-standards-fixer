@@ -15,11 +15,11 @@ function symfonyCodingStandardsFixer($fileHeaderComment)
 {
     return Config::create()
         ->setRiskyAllowed(true)
-        ->setRules(array(
+        ->setRules([
             '@Symfony' => true,
             '@Symfony:risky' => true,
-            'array_syntax' => array('syntax' => 'short'),
-            'header_comment' => array('header' => $fileHeaderComment, 'separate' => 'both'),
+            'array_syntax' => ['syntax' => 'short'],
+            'header_comment' => ['header' => $fileHeaderComment, 'separate' => 'both'],
             'linebreak_after_opening_tag' => true,
             'mb_str_functions' => true,
             'no_php4_constructor' => true,
@@ -32,7 +32,7 @@ function symfonyCodingStandardsFixer($fileHeaderComment)
             'semicolon_after_instruction' => true,
             'strict_comparison' => true,
             'strict_param' => true,
-        ))
+        ])
     ;
 }
 
