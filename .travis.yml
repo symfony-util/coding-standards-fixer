@@ -40,20 +40,9 @@ matrix:
   - php: 5.4
     env:
     - SYMFONY_VERSION="2.3.*"
-  - php: 5.3 # Symfony 2.8. First PHP version with "composer"
-    dist: precise
-  - php: 5.3
-    dist: precise
-    env:
-    - SYMFONY_VERSION="2.7.*"
-  - php: 5.3
-    dist: precise
-    env:
-    - SYMFONY_VERSION="2.3.*"
   allow_failures:
   - php: nightly
   - php: 7.3
-  - php: 5.3
   - env:
     - SYMFONY_VERSION="2.7.*" # https://github.com/symfony/symfony/issues/26315
   - env:
