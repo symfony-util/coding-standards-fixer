@@ -29,7 +29,7 @@ function symfonyCodingStandardsFixer($fileHeaderComment)
             'ordered_imports' => true,
             'php_unit_strict' => true,
             'phpdoc_order' => true,
-            'semicolon_after_instruction' => true,
+            'semicolon_after_instruction' => true, // @Symfony since...
             'strict_comparison' => true,
             'strict_param' => true,
         ])
