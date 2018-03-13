@@ -10,3 +10,8 @@ PHP Coding Standards Fixer Configuration from symfony/demo as a function of file
 ## TODO
 
 * Implement the proposer ruleset as an array constant http://php.net/manual/en/language.constants.syntax.php
+  * array constant requires PHP 5.6 (no idea how to implement it before 5.6, better just do not try to find more solutions)
+  ```
+  php > print_r(array_merge(null, array('dog', 'cat', 'bird')));
+  PHP Warning:  array_merge(): Argument #1 is not an array in php shell code on line 1
+  ```
