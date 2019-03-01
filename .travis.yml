@@ -186,9 +186,9 @@ script:
 # - if [[ "5.4" < "$TRAVIS_PHP_VERSION" ]]; then php .travis/bin/security-checker security:check ~/composer.lock; fi
 - which security-checker
 - composer global why paragonie/random_compat || true
-- security-checker security:check ~/.composer/composer.lock
+- security-checker security:check --end-point=https://security.symfony.com/check_lock ~/.composer/composer.lock
 - composer why paragonie/random_compat || true
-- if [[ -f composer.lock ]]; then security-checker security:check; fi
+- if [[ -f composer.lock ]]; then security-checker security:check --end-point=https://security.symfony.com/check_lock ; fi
 #^ This checks that the application doesn't use dependencies with known security vulnerabilities
     #^ This checks that the application doesn't use dependencies with known security vulnerabilities
     # Should be in composer.json and should be run if found in path for components or better all the time as versions exists for all symfony 2 versions.
