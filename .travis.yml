@@ -56,6 +56,12 @@ matrix:
   - env:
     - SYMFONY_VERSION="2.7.*" # https://github.com/symfony/symfony/issues/26315
   - env:
+    - END_POINT="--end-point=http://security.symfony.com/check_lock"
+    - SYMFONY_VERSION="2.7.*"
+  - env:
+    - SYMFONY_VERSION="2.3.*"
+  - env:
+    - END_POINT="--end-point=http://security.symfony.com/check_lock"
     - SYMFONY_VERSION="2.3.*"
   
 before_install:
