@@ -190,8 +190,10 @@ script:
 # - if [[ "5.4" < "$TRAVIS_PHP_VERSION" ]]; then php .travis/bin/security-checker security:check ~/composer.lock; fi
 - which security-checker
 - composer global why paragonie/random_compat || true
+- composer global why symfony/symfony || true
 - security-checker security:check $END_POINT ~/.composer/composer.lock
 - composer why paragonie/random_compat || true
+- composer global why symfony/symfony || true
 - if [[ -f composer.lock ]]; then security-checker security:check $END_POINT; fi
 #^ This checks that the application doesn't use dependencies with known security vulnerabilities
     #^ This checks that the application doesn't use dependencies with known security vulnerabilities
